@@ -11,7 +11,7 @@
 // program include
 #include "Headers/TimeManager.h"
 
-// Shaders code
+// Shaders code Escruito en GLSL(OpenGL Shanding language)
 const GLchar* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 position;\n"
 "void main()\n"
@@ -22,7 +22,7 @@ const GLchar* fragmentShaderSource = "#version 330 core\n"
 "out vec4 color;\n"
 "void main()\n"
 "{\n"
-"color = vec4(0.3f, 0.6f, 0.9f, 1.0f);\n"
+"color = vec4(1.0f, 0.0f, 1.0f, 1.0f);\n"
 "}\n\0";
 
 GLuint VBO, VAO;
@@ -137,7 +137,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	}
 
 	// Vertex data
-	GLfloat vertices[] = { -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f };
+	GLfloat vertices[] = { -1.0f, -1.0f, 0.0f, 0.5f, -0.5f, 0.0f, 0.5f, 0.5f, 0.0f, 0.5f, 0.5f, 0.0f, -0.5f, 0.5f, 0.0f, -0.5f, -0.5f, 0.0f };
+						 //(        VO       ,        V1        ,       V2        )        V3       ,         V4       ,          V5        
 
 	// Create Buffers and attributes vertex.
 	glGenVertexArrays(1, &VAO);
@@ -237,7 +238,7 @@ void applicationLoop() {
 		// Draw our first triangle
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
