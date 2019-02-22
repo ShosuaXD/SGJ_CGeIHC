@@ -94,8 +94,10 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cerr << "Failed to initialize glew" << std::endl;
 		exit(-1);
 	}
-
+	//Define la zona de dibujo que deseamos utilizar
+	//paametros: inicial en x, inicial en y, amcho y alto de la zona de dibujo
 	glViewport(0, 0, screenWidth, screenHeight);
+	//----------------------------------------------
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
 	glEnable(GL_DEPTH_TEST);
@@ -251,8 +253,21 @@ void applicationLoop() {
 		GLint projLoc = shader.getUniformLocation("projection");
 
 		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -7.0f));
-		glm::mat4 projection = glm::perspective(glm::radians(45.0f), 
-			(float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
+		//tarea asignarle a la proyecciones una tecla y que las muestre , asi como poder modificarle los parametros
+		//glm::mat4 projection = glm::perspective(glm::radians(45.0f), 
+			//(float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
+		//glm::mat4 crea una matriz de 4x4
+		//glm::ortho crea unamatriz de proyeccion ortogonal
+		//params -- plano izquierdo, plano derecho, plano bajo, plano arriba,
+		//          plano cercano, y plano lejano
+		//glm::mat4 projection = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f,0.01f, 100.0f);
+		//glm::frsutum crean un matriz de proyeccion en perpectiva
+		//params -- plano izquierdo, plano derecho, plano bajo, plano arriba,
+		//          plano cercano, y plano lejano
+		glm::mat4 projection = glm::frustum(-2.0f, 2.0f, -2.0f, 2.0f,0.01f, 100.0f);
+		//glm::perpective crea una proyeccion en perpectiva que cambia respecto 
+		//a las dimenciones de la ventana
+		//glm::mat4 projection = glm::perspective(glm::radians(45.0f),(float)(screenWidth/screenHeight), 0.01f,100.0f);
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
